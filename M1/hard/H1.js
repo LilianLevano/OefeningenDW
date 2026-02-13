@@ -8,7 +8,7 @@ let laatsteSubUl = null; // we initialiseren wat we later zullen gebruiken
 
 let hoofdtitelCount = 1;
 let classVoorSub = null;
-
+let subUlCount = 1;
 
 alleTitels.forEach(titel => {
     if (!titel.id) {
@@ -25,10 +25,13 @@ for(let titel of alleTitels){
        
         hoofdLi.classList.add("hoofd-li")
         classVoorSub = titel.id
-        hoofdLi.id = titel.id
+        
+        aHoofd.textContent = titel.textContent
 
-        aHoofd.href = '#' + titel.id;
-        ul.appendChild(hoofdLi).appendChild(aHoofd).appendChild(titel) // voeg een li met de titel toe
+        aHoofd.href = '#' + titel.id + "-page";
+        aHoofd.id = titel.id
+        aHoofd.classList.add('hoofd-a')
+        ul.appendChild(hoofdLi).appendChild(aHoofd) // voeg een li met de titel toe
 
       
         
@@ -36,7 +39,8 @@ for(let titel of alleTitels){
         let subUl = document.createElement('ul')
         hoofdLi.appendChild(subUl)      // we maken een ul die momenteel leeg is
         subUl.classList.add("subUl")
-        subUl.id = classVoorSub
+        subUl.id = classVoorSub + "-" + subUlCount
+        subUlCount++;
 
         laatsteSubUl = subUl // we onthouden wat de laatste subUl was zodat we in volgorde later iets kunnen toevoegen
         
@@ -45,19 +49,23 @@ for(let titel of alleTitels){
     }else if (titel.tagName === 'H2' && laatsteSubUl){      // als de titel h2 is en dat er voor dit een sub ul al gemaakt werd
         let liSub = document.createElement('li')        // we maken een li element
 
+        liSub.classList.add('subLi')
        
 
         let aSub = document.createElement('a')
         aSub.href = '#' + titel.id;
 
-        laatsteSubUl.appendChild(liSub).appendChild(aSub).appendChild(titel) // we voegen een li met de subtitel in de al geonthouden sub ul
+        aSub.textContent = titel.textContent
+
+
+        laatsteSubUl.appendChild(liSub).appendChild(aSub) // we voegen een li met de subtitel in de al geonthouden sub ul
     }
     
     
 }
 
 
-let alleHoofdtitelsLi = document.querySelectorAll('.hoofd-li a h1')
+let alleHoofdtitelsLi = document.querySelectorAll('.hoofd-li .hoofd-a')
 
 
 for(let hoofdtitel of alleHoofdtitelsLi){
@@ -74,15 +82,24 @@ for(let hoofdtitel of alleHoofdtitelsLi){
 
                     let currentDisplay = window.getComputedStyle(subtitel).display
 
-                        if(subtitel.id === hoofdtitel.id){
+                        if(subtitel.id.includes(hoofdtitel.id)){
                             if(currentDisplay === "block"){
                                 subtitel.style.display = "none"
+
+        
                                 hoofdtitel.style.color = "blue"
                             }else if (currentDisplay === "none") {
                                 subtitel.style.display = "block"
                                 hoofdtitel.style.color = "green"
+                                
+                                
+
+
+
                             }
                       }   
+
+                      subtitel.style.color = "blue"
 
 
             
