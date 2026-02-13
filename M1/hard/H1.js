@@ -58,7 +58,7 @@ for(let titel of alleTitels){
 
 
 let alleHoofdtitelsLi = document.querySelectorAll('.hoofd-li a h1')
-let hidden = null;
+
 
 for(let hoofdtitel of alleHoofdtitelsLi){
 
@@ -70,52 +70,22 @@ for(let hoofdtitel of alleHoofdtitelsLi){
             
                 for(let subtitel of subUlVanHoofdtitel){
             
-                    
+               
 
                     let currentDisplay = window.getComputedStyle(subtitel).display
 
                         if(subtitel.id === hoofdtitel.id){
                             if(currentDisplay === "block"){
-                            subtitel.style.display = "none"
-                            hidden = true;
-                        }else if (currentDisplay === "none") {
-                            subtitel.style.display = "block"
-                            hidden = false;
-                        }
-                    
-                
-                }   
-
-
-                let alleTitelsVoorStatus = document.querySelectorAll('h1, h2')
-                let laatsteTitel = null;
-
-                    for(let titel of alleTitelsVoorStatus){
-
-                        titel.addEventListener('click', function(){
-                            
-
-                            if(currentDisplay === "none"){
-                                titel.style.color = "blue"
+                                subtitel.style.display = "none"
+                                hoofdtitel.style.color = "blue"
+                            }else if (currentDisplay === "none") {
+                                subtitel.style.display = "block"
+                                hoofdtitel.style.color = "green"
                             }
-
-                            if(laatsteTitel === null){
-                                titel.style.color = "green"
-                                laatsteTitel = titel
-                            }else{
-                                
-                                if(laatsteTitel != titel){
-                                    laatsteTitel.style.color = "blue"
-                                    titel.style.color = "green"
-                                    laatsteTitel = titel
-                                }
+                      }   
 
 
-                            }
-
-                        })
-
-                    }
+            
             } 
             
         })
