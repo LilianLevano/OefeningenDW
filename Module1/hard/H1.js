@@ -33,9 +33,6 @@ for(let titel of alleTitels){
         aHoofd.classList.add('hoofd-a')
         ul.appendChild(hoofdLi).appendChild(aHoofd) // voeg een li met de titel toe
 
-      
-        
-
         let subUl = document.createElement('ul')
         hoofdLi.appendChild(subUl)      // we maken een ul die momenteel leeg is
         subUl.classList.add("subUl")
@@ -51,7 +48,6 @@ for(let titel of alleTitels){
 
         liSub.classList.add('subLi')
        
-
         let aSub = document.createElement('a')
         aSub.href = '#' + titel.id;
 
@@ -71,43 +67,25 @@ let alleHoofdtitelsLi = document.querySelectorAll('.hoofd-li .hoofd-a')
 for(let hoofdtitel of alleHoofdtitelsLi){
 
     let subUlVanHoofdtitel = document.querySelectorAll('.subUl')
-    
 
             hoofdtitel.addEventListener('click', function(){
-        
             
                 for(let subtitel of subUlVanHoofdtitel){
-            
-               
-
                     let currentDisplay = window.getComputedStyle(subtitel).display
 
                         if(subtitel.id.includes(hoofdtitel.id)){
                             if(currentDisplay === "block"){
                                 subtitel.style.display = "none"
-
-        
                                 hoofdtitel.style.color = "blue"
+
                             }else if (currentDisplay === "none") {
                                 subtitel.style.display = "block"
                                 hoofdtitel.style.color = "green"
-                                
-                                
-
-
-
                             }
                       }   
-
                       subtitel.style.color = "blue"
-
-
-            
-            } 
-            
+            }   
         })
-    
-    
 }
 
 
