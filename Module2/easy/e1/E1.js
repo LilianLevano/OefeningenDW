@@ -14,7 +14,7 @@ buttonToevoegen.addEventListener('click', function(){
     alleScores.push(Number(nieuweScoreInput.value))
     let nieuweScoreNumber = Number(nieuweScoreInput.value)
 
-    som += nieuweScoreNumber
+   
 
     let li = document.createElement('li')
     li.textContent = nieuweScoreNumber
@@ -37,6 +37,12 @@ buttonToevoegen.addEventListener('click', function(){
         }
 
     })
+
+    for(let getal in alleScores){
+        som += getal
+    }
+
+    console.log(som)
    
   
     gemiddelde = som / alleScores.length
