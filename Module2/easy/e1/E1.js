@@ -38,7 +38,7 @@ buttonToevoegen.addEventListener('click', function(){
 
     })
 
-    for(let getal in alleScores){
+    for(let getal of alleScores){
         som += getal
     }
 
