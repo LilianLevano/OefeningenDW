@@ -13,8 +13,8 @@ let gemiddelde = 0;
 buttonToevoegen.addEventListener('click', function(){
     alleScores.push(Number(nieuweScoreInput.value))
     let nieuweScoreNumber = Number(nieuweScoreInput.value)
-
-   
+    som += nieuweScoreNumber
+    console.log(som)
 
     let li = document.createElement('li')
     li.textContent = nieuweScoreNumber
@@ -32,17 +32,15 @@ buttonToevoegen.addEventListener('click', function(){
 
         let alleLi = document.querySelectorAll('li')
 
-        for(li of alleLi){
+        for(let li of alleLi){
             li.remove()
         }
 
     })
 
-    for(let getal of alleScores){
-        som += getal
-    }
 
-    console.log(som)
+ 
+    
    
   
     gemiddelde = som / alleScores.length
@@ -55,6 +53,10 @@ buttonToevoegen.addEventListener('click', function(){
 
 })
 
+
+ 
+
+    
 
 
 
