@@ -1,0 +1,17 @@
+fieldset{
+
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tonen{
+    display: block;
+}
+
+.verbergen{
+    display: none;
+}

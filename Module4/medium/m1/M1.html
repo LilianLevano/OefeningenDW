@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="M1.js"></script>
+    <link rel="stylesheet" href="m1.css">
+</head>
+<body>
+
+    <fieldset>
+        <legend>Registreer een voertuig</legend>
+        <select name="type_voertuig" id="typeVoertuig">
+            <option value="leeg"></option>
+            <option value="motor">Motor</option>
+            <option value="auto">Auto</option>
+        </select>
+        
+        <input type="text" id="merk" placeholder="Merk">
+
+        <input type="text" id="model" placeholder="Model">
+
+        <input type="text" id="jaar" placeholder="Jaar">
+
+        <input type="text" id="verhuurPrijs" placeholder="Verhuur prijs">
+
+        <select id="beschikbaarheid"> 
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+
+        <input  type="text" id="aantalDeuren" placeholder="Aantal deuren">
+
+        <input  type="text" id="brandstofType" placeholder="Brandstof type">
+
+        <input  type="text" id="cilinderInhoud" placeholder="Cilinder inhoud">
+
+        <input  type="text" id="type" placeholder="Type">
+
+
+        <button id="registreer">Registreer</button>
+
+    </fieldset>
+
+
+       <div class="controls">
+    
+        <select name="voertuig" id="voertuigSelect"></select>
+
+
+    <button id="verhuurVoertuig">Verhuur</button>
+    <button id="retourneerVoertuig">Retourneer</button>
+  
+</div>
+
+    <div id="output"></div>
+</body>
+</html>
