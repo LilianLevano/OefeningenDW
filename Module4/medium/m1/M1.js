@@ -41,13 +41,13 @@ class Auto extends Voertuig {
 
   verhuur() {
     this.beschikbaar = false;
-    alert('Auto Verhuurd')
+    alert("Auto Verhuurd");
     console.log("Auto Verhuurd");
   }
 
   retourneer() {
     this.beschikbaar = true;
-    alert('Auto Geretourneerd')
+    alert("Auto Geretourneerd");
     console.log("Auto Geretourneerd");
   }
 }
@@ -69,13 +69,13 @@ class Motor extends Voertuig {
 
   verhuur() {
     this.beschikbaar = false;
-    alert('Motor Verhuurd')
+    alert("Motor Verhuurd");
     console.log("Motor Verhuurd");
   }
 
   retourneer() {
     this.beschikbaar = true;
-    alert('Motor Geretourneerd')
+    alert("Motor Geretourneerd");
     console.log("Motor Geretourneerd");
   }
 }
@@ -111,8 +111,6 @@ typeVoertuig.addEventListener("change", () => {
 
 let voertuigInput = document.getElementById("voertuigSelect");
 registreerButton.addEventListener("click", () => {
-  
-
   if (typeVoertuig.value === "motor") {
     let nieuweMotor = new Motor(
       merkInput.value,
@@ -160,47 +158,38 @@ registreerButton.addEventListener("click", () => {
   typeInput.value = "";
 });
 
+let buttonVerhuur = document.getElementById("verhuurVoertuig");
 
-let buttonVerhuur = document.getElementById('verhuurVoertuig')
+buttonVerhuur.addEventListener("click", () => {
+  const voertuigInput = document.getElementById("voertuigSelect");
 
-buttonVerhuur.addEventListener('click', ()=>{
- 
-  const voertuigInput = document.getElementById('voertuigSelect')
+  const gekozeVoertuig = alleVoertuigen.find(
+    (voertuig) => voertuig.model === voertuigInput.value,
+  );
 
-  const gekozeVoertuig = alleVoertuigen.find(voertuig => voertuig.model === voertuigInput.value)
-  
   gekozeVoertuig.verhuur();
 
   console.log(gekozeVoertuig);
   refreshUl();
-  
-  
+});
 
+let buttonRetourneer = document.getElementById("retourneerVoertuig");
+buttonRetourneer.addEventListener("click", () => {
+  const voertuigInput = document.getElementById("voertuigSelect");
 
-})
+  const gekozeVoertuig = alleVoertuigen.find(
+    (voertuig) => voertuig.model === voertuigInput.value,
+  );
 
-let buttonRetourneer = document.getElementById('retourneerVoertuig')
-buttonRetourneer.addEventListener('click', ()=>{
-
-  const voertuigInput = document.getElementById('voertuigSelect')
-
-  const gekozeVoertuig = alleVoertuigen.find(voertuig => voertuig.model === voertuigInput.value)
-  
   gekozeVoertuig.retourneer();
 
   console.log(gekozeVoertuig);
   refreshUl();
-  
-  
+});
 
-
-})
-
-
-const refreshUl = () =>{
-
+const refreshUl = () => {
   ul.innerHTML = "";
-    for (let voertuig of alleVoertuigen) {
+  for (let voertuig of alleVoertuigen) {
     console.log("Hey");
 
     let li = document.createElement("li");
@@ -225,4 +214,4 @@ const refreshUl = () =>{
     li.textContent += overzicht;
     ul.appendChild(li);
   }
-}
+};
