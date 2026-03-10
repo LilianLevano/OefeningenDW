@@ -1,0 +1,21 @@
+*{
+    line-height: 2rem;
+}
+
+ul{
+    display: none;
+}
+
+.active{
+    ul{
+        display: block;
+    }
+ }
+
+
+
+ .tabs{
+    .active{
+        background-color: green;
+    }
+ }
