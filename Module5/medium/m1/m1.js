@@ -38,6 +38,7 @@ async function laadAlleAfbeeldingen() {
        
     } catch (error) {
         console.log('lol');
+        progressBar.style.backgroundColor = "red"
         
     }
 }
