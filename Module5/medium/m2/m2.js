@@ -13,6 +13,7 @@ function startTimer(seconds) {
     let tijd = seconds;
     divTimer.textContent = tijd;
 
+    startButton.disabled = true;
     cancelButton.disabled = false;
 
     // we declareren de interval zodat we die kunnen stoppen met clearInterval();
