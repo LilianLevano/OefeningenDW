@@ -29,9 +29,9 @@ async function startLichtShow(){
     await wait(500);
 
       // rechts → links
-    for(let i = blocks.length - 1; i >= 0; i--){
-        await verlichtBlok(blocks[i], 400);
-    }
+   for(let block of [...blocks].reverse()){     // []...block] is noodzakkelijk om de querySelectorAll blocks in een echte array te zetten. Het is oorspronkelijk een nodelist waardoor je functies zoals reverse() niet kan gebruiken. ... converteer het naar een echte array
+    await verlichtBlok(block, 400);
+}
 
 }
 
