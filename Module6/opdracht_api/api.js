@@ -5,9 +5,7 @@ buttonHeroNaamOpzoeken.addEventListener("click", () => {
   let heroNaamInput = document.getElementById("hero_opzoeken");
   let heroNaam = heroNaamInput.value;
 
- let urlHero = `https://corsproxy.io/?${encodeURIComponent(
-  `https://superheroapi.com/api/099bd75277c0137df5e7f632d26e91b9/search/${heroNaam}`
-)}`;
+ let urlHero = `https://corsproxy.io/?${encodeURIComponent(`https://superheroapi.com/api/099bd75277c0137df5e7f632d26e91b9/search/${heroNaam}`)}`;
   divHeroData.innerHTML = "";
 
   fetch(urlHero)
