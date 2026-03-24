@@ -1,70 +1,104 @@
-let alleCategorieen = document.querySelectorAll('.categorie')
-let laatsteGeselecteerdeCategorie = document.getElementById('eersteCat');
-let divItems = document.getElementById('items-container')
+let alleCategorieen = document.querySelectorAll(".categorie");
+let laatsteGeselecteerdeCategorie = document.getElementById("eersteCat");
+let divItems = document.getElementById("items-container");
+let alleItems = document.querySelectorAll(".item");
+let laatsteGekozeItem;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await resetItemContainer();
+  alleItems = document.querySelectorAll(".item");
 
 
+});
 
-for(let buttonCategorie of alleCategorieen){
-    buttonCategorie.addEventListener('click', () =>{
-        laatsteGeselecteerdeCategorie = buttonCategorie;
-        console.log(laatsteGeselecteerdeCategorie.getAttribute("value"));
-        resetItemContainer();
-        
-    })
+document.getElementById('test').addEventListener('click', () =>{
+    console.log(laatsteGekozeItem);
+    
+});
+
+
+for (let buttonCategorie of alleCategorieen) {
+  buttonCategorie.addEventListener("click", async () => {
+    laatsteGeselecteerdeCategorie = buttonCategorie;
+
+    await resetItemContainer();
+
+    alleItems = document.querySelectorAll(".item");
+  
+  });
 }
 
-function resetItemContainer (){
+async function resetItemContainer() {
+  divItems.innerHTML = "";
 
-    divItems.innerHTML = "";
+  let valueGeselecteerdeCategorie =
+    laatsteGeselecteerdeCategorie.getAttribute("value");
 
-    let valueGeselecteerdeCategorie = laatsteGeselecteerdeCategorie.getAttribute('value')
+  await fetch(
+    `https://botw-compendium.herokuapp.com/api/v3/compendium/category/${valueGeselecteerdeCategorie}`,
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      let lijstData = data.data;
 
-    fetch(`https://botw-compendium.herokuapp.com/api/v3/compendium/category/${valueGeselecteerdeCategorie}`)
-    .then(res => res.json())
-    .then(data =>{
-        let lijstData = data.data
+      for (let item of lijstData) {
+        let naamItem = item.name;
+        let idItem = item.id;
+        let urlImageItem = item.image;
 
-        console.log(lijstData);
-        
+        let itemCard = document.createElement("article");
+        itemCard.classList.add("item");
 
-        for(let item of lijstData){
-            let naamItem = item.name
-            let idItem = item.id
-            let urlImageItem = item.image
+        itemCard.addEventListener("click", () => {
+          console.log(itemCard);
+          console.log(itemCard.getAttribute("value"));
+          laatsteGekozeItem = itemCard
+          toonAlleInfo(itemCard)
+          
+          
+        });
 
+        let divInfoItem = document.createElement("div");
+        divInfoItem.classList.add("info-item");
 
-            let itemCard = document.createElement('article')
-            itemCard.classList.add('item')
+        let titelItem = document.createElement("h2");
+        titelItem.classList.add("titel-item");
+        titelItem.textContent = naamItem;
 
-            let divInfoItem = document.createElement('div')
-            divInfoItem.classList.add('info-item')
+        divInfoItem.appendChild(titelItem);
 
-            let titelItem = document.createElement('h2')
-            titelItem.classList.add('titel-item')
-            titelItem.textContent = naamItem
+        let idItemHTML = document.createElement("p");
+        idItemHTML.classList.add("id-item");
+        idItemHTML.textContent = idItem;
 
-            divInfoItem.appendChild(titelItem)
+        divInfoItem.appendChild(idItemHTML);
 
-            let idItemHTML = document.createElement('p')
-            idItemHTML.classList.add('id-item')
-            idItemHTML.textContent = idItem
+        let img = document.createElement("img");
+        img.src = urlImageItem;
 
-            divInfoItem.appendChild(idItemHTML)
-
-            let img = document.createElement('img')
-            img.src = urlImageItem
-
-            itemCard.appendChild(img)
-            itemCard.appendChild(divInfoItem)
-            itemCard.setAttribute('value', idItem)
-            divItems.appendChild(itemCard)
-            
-        }
-        
-    })
+        itemCard.appendChild(img);
+        itemCard.appendChild(divInfoItem);
+        itemCard.setAttribute("value", idItem);
+        divItems.appendChild(itemCard);
+      }
+    });
 }
 
 
 
+function toonAlleInfo(itemCard){
+    alert(itemCard.getAttribute('value'))
 
+    let cover = document.createElement('section')
+    cover.classList.add('cover')
 
+    let article = document.createElement('article')
+    cover.appendChild(article)
+
+    let buttonSluiten = document.createElement('button')
+    
+
+    document.body.appendChild(cover)
+
+    
+}
