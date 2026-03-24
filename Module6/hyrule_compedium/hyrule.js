@@ -7,15 +7,11 @@ let laatsteGekozeItem;
 document.addEventListener("DOMContentLoaded", async () => {
   await resetItemContainer();
   alleItems = document.querySelectorAll(".item");
-
-
 });
 
-document.getElementById('test').addEventListener('click', () =>{
-    console.log(laatsteGekozeItem);
-    
+document.getElementById("test").addEventListener("click", () => {
+  console.log(laatsteGekozeItem);
 });
-
 
 for (let buttonCategorie of alleCategorieen) {
   buttonCategorie.addEventListener("click", async () => {
@@ -24,7 +20,6 @@ for (let buttonCategorie of alleCategorieen) {
     await resetItemContainer();
 
     alleItems = document.querySelectorAll(".item");
-  
   });
 }
 
@@ -39,6 +34,8 @@ async function resetItemContainer() {
   )
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
+
       let lijstData = data.data;
 
       for (let item of lijstData) {
@@ -52,10 +49,8 @@ async function resetItemContainer() {
         itemCard.addEventListener("click", () => {
           console.log(itemCard);
           console.log(itemCard.getAttribute("value"));
-          laatsteGekozeItem = itemCard
-          toonAlleInfo(itemCard)
-          
-          
+          laatsteGekozeItem = itemCard;
+          toonAlleInfo(itemCard);
         });
 
         let divInfoItem = document.createElement("div");
@@ -84,21 +79,72 @@ async function resetItemContainer() {
     });
 }
 
+function toonAlleInfo(itemCard) {
+  fetch(
+    `https://botw-compendium.herokuapp.com/api/v3/compendium/entry/${itemCard.getAttribute("value")}`,
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.data);
 
+      let item = data.data;
 
-function toonAlleInfo(itemCard){
-    alert(itemCard.getAttribute('value'))
+      let cover = document.createElement("section");
+      cover.classList.add("cover");
+      document.body.appendChild(cover);
 
-    let cover = document.createElement('section')
-    cover.classList.add('cover')
+      let article = document.createElement("article");
 
-    let article = document.createElement('article')
-    cover.appendChild(article)
+      let h1TitelItem = document.createElement("h1");
+      h1TitelItem.textContent = item.name;
+      article.appendChild(h1TitelItem);
 
-    let buttonSluiten = document.createElement('button')
-    
+      let divInArticle = document.createElement("div");
+      divInArticle.classList.add("in-article");
 
-    document.body.appendChild(cover)
+      let img = document.createElement("img");
+      img.src = item.image;
+      divInArticle.appendChild(img);
 
-    
+      let beschrijving = document.createElement("p");
+      beschrijving.textContent = item.description;
+      divInArticle.appendChild(beschrijving);
+
+      let divExtraInfo = document.createElement("div");
+      divExtraInfo.classList.add("extraInfo");
+
+      let h2Drops = document.createElement("h2");
+
+      let arrayDrops = item.drops;
+
+      if (arrayDrops) {
+        h2Drops.textContent = "DROPS:";
+        divExtraInfo.appendChild(h2Drops);
+        let p = document.createElement("p");
+
+        if (arrayDrops.length === 0) {
+          p.textContent = "No drops";
+          divExtraInfo.appendChild(p);
+        } else {
+          for (let drop of arrayDrops) {
+            p.textContent += drop + ", ";
+          }
+
+          divExtraInfo.appendChild(p);
+        }
+      }
+
+      let buttonSluiten = document.createElement("button");
+      buttonSluiten.textContent = "Sluiten";
+
+      buttonSluiten.classList.add("close-button");
+      buttonSluiten.addEventListener("click", () => {
+        cover.remove();
+      });
+
+      article.appendChild(divInArticle);
+      article.append(divExtraInfo);
+      article.appendChild(buttonSluiten);
+      cover.appendChild(article);
+    });
 }
