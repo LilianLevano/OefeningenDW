@@ -143,7 +143,7 @@ function toonAlleInfo(itemCard) {
       });
 
       article.appendChild(divInArticle);
-      article.append(divExtraInfo);
+      article.appendChild(divExtraInfo);
       article.appendChild(buttonSluiten);
       cover.appendChild(article);
     });
