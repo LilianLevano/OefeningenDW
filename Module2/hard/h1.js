@@ -22,13 +22,13 @@ let selectRapportStudent = document.getElementById('reportStudent')
 let buttonGenereerRapport = document.getElementById('generateReport')
 let divReportOutput = document.getElementById('reportOutput')
 
-buttonCursusToevoegen.addEventListener('click', function(){
+buttonCursusToevoegen.addEventListener('click', function () {
 
     let bestaandeCursus = alleCursussen.find(cursus => cursus.titel === cursisTitelInput.value)
 
-    if(bestaandeCursus){
+    if (bestaandeCursus) {
         alert('Deze cursus bestaat al')
-    }else{
+    } else {
 
         let cursus = {
             titel: cursisTitelInput.value,
@@ -41,49 +41,49 @@ buttonCursusToevoegen.addEventListener('click', function(){
 
     cursisTitelInput.value = ""
     cursusBeschrijvingInput.value = ""
-    updateCursusOpties()
-    updateModuleOpties()
-    resetInput()
-    updateStudentRapporten()
+    updateCursusOpties();
+    updateModuleOpties();
+    resetInput();
+    updateStudentRapporten();
 })
 
-selectStudentPicker.addEventListener('click', function(){
+selectStudentPicker.addEventListener('click', function () {
     updateModuleOpties()
 })
 
-buttonStudentToevoegen.addEventListener('click', function(){
+buttonStudentToevoegen.addEventListener('click', function () {
 
     let bestaandeStudent = alleStudenten.find(student => student.naam === studentNaamInput.value)
     let gekozenCursus = alleCursussen.find(cursus => cursus.titel === selectCursusPicker.value)
 
     // als de student niet bestaat maken we die
-    if(!bestaandeStudent){
+    if (!bestaandeStudent) {
         let student = {
             naam: studentNaamInput.value,
             cursussen: [],
         }
         alleStudenten.push(student)
-        bestaandeStudent = student 
+        bestaandeStudent = student
     }
 
     let heeftAlCursus = bestaandeStudent.cursussen.find(c => c.cursus === gekozenCursus.titel)
 
-    if(heeftAlCursus){
+    if (heeftAlCursus) {
         alert('Deze student heeft dit vak al!')
     } else {
         bestaandeStudent.cursussen.push({ cursus: gekozenCursus.titel, beschrijving: gekozenCursus.beschrijving, score: null })
-       
+
     }
 
     studentNaamInput.value = ""
     updateStudentOpties()
-     resetInput()
-     updateStudentRapporten()
+    resetInput()
+    updateStudentRapporten()
 })
 
-buttonScoreToevoegen.addEventListener('click', function(){
+buttonScoreToevoegen.addEventListener('click', function () {
 
-    let scoreToeTeVoegen = Number(scoreToevoegenInput.value) 
+    let scoreToeTeVoegen = Number(scoreToevoegenInput.value)
 
     let student = alleStudenten.find(student => student.naam === selectStudentPicker.value)
     let cursusVanStudent = student.cursussen.find(cursus => cursus.cursus === selectCursusPickerVoorStudent.value)
@@ -92,12 +92,12 @@ buttonScoreToevoegen.addEventListener('click', function(){
     scoreToevoegenInput.value = ""
 
     console.log(student);
-     resetInput()
-     updateStudentRapporten()
+    resetInput()
+    updateStudentRapporten()
 })
 
-buttonGenereerRapport.addEventListener('click', function(){
-   
+buttonGenereerRapport.addEventListener('click', function () {
+
 
     divReportOutput.innerHTML = "";
     let gekozeStudent = alleStudenten.find(student => student.naam === selectRapportStudent.value)
@@ -106,7 +106,7 @@ buttonGenereerRapport.addEventListener('click', function(){
     Naam student: ${gekozeStudent.naam}
     `
 
-    for(let i = 0; i < gekozeStudent.cursussen.length; i++){
+    for (let i = 0; i < gekozeStudent.cursussen.length; i++) {
         overview += `
             Cursus van de student: ${gekozeStudent.cursussen[i].cursus}
                 Beschrijving van die cursus: ${gekozeStudent.cursussen[i].beschrijving}
@@ -116,41 +116,37 @@ buttonGenereerRapport.addEventListener('click', function(){
 
     let p = document.createElement('p')
     p.textContent = overview
-    
+
     divReportOutput.style.whiteSpace = "pre-wrap"
     divReportOutput.appendChild(p)
 
 })
 
 
-function updateCursusOpties(){
+function updateCursusOpties() {
 
     selectCursusPicker.innerHTML = ""
-    
 
-    for(let cursus of alleCursussen){
+
+    for (let cursus of alleCursussen) {
         let option = document.createElement('option')
         option.id = cursus.titel
         option.textContent = cursus.titel
-        
+
         selectCursusPicker.appendChild(option)
-        
+
     }
-
-    
-
-
 }
 
-function updateModuleOpties(){
+function updateModuleOpties() {
 
     selectCursusPickerVoorStudent.innerHTML = ""
 
     let student = alleStudenten.find(student => student.naam === selectStudentPicker.value)
 
-     if(!student) return
+    if (!student) return
 
-    for(let i = 0; i < student.cursussen.length; i++){
+    for (let i = 0; i < student.cursussen.length; i++) {
 
         let option = document.createElement('option')
         option.id = student.cursussen[i].cursus;
@@ -164,40 +160,33 @@ function updateModuleOpties(){
 
 
 
-function updateStudentOpties(){
+function updateStudentOpties() {
 
     selectStudentPicker.innerHTML = ""
 
-    for(let student of alleStudenten){
+    for (let student of alleStudenten) {
         let option = document.createElement('option')
         option.id = student.naam
         option.textContent = student.naam
-        
-        selectStudentPicker.appendChild(option)
+
+        selectStudentPicker.appendChild(option);
     }
-
-    selectStudentPicker.value = ""
-
-
+    selectStudentPicker.value = "";
 }
 
-function updateStudentRapporten(){
-    selectRapportStudent.innerHTML = ""
+function updateStudentRapporten() {
+    selectRapportStudent.innerHTML = "";
 
-    for(let student of alleStudenten){
-        let optie = document.createElement('option')
-        optie.textContent = student.naam
-
-        selectRapportStudent.appendChild(optie)
+    for (let student of alleStudenten) {
+        let optie = document.createElement('option');
+        optie.textContent = student.naam;
+        selectRapportStudent.appendChild(optie);
     }
-
 }
 
-
-function resetInput(){
+function resetInput() {
 
     selectCursusPicker.value = "";
     selectStudentPicker.value = "";
     selectCursusPickerVoorStudent.value = "";
-
 }
